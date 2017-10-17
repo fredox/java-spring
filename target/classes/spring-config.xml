@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="helloWorld" class="com.privalia.presentation.HelloWorld">
+	<property name="hello" value="Hola Mundo!"></property>
+</bean>
+
+<bean id="HelloWorldConstructor" class="com.privalia.presentation.HelloWorld">
+	<constructor-arg index="0" value="Hola Mundo From Contructor!" type="java.lang.String"/>
+</bean>
+
+<bean id="Student" class="com.privalia.entity.Student">
+	<property name="age" value="36"></property>
+	<property name="name" value="Alfredo"></property>
+	<property name="idStudent" value="2"></property>
+	<property name="surname" value="Galiana"></property>
+	<property name="address">
+		<bean id="Address" class="com.privalia.entity.Address">
+			<property name="street" value="Balmes"></property>
+			<property name="city" value="Barcelona"></property>
+			<property name="town" value="Barna"></property>
+		</bean>
+	</property>
+</bean>
+
+<bean id="Address" class="com.privalia.entity.Address">
+	<property name="street" value="Balmes"></property>
+	<property name="city" value="Barcelona"></property>
+	<property name="town" value="Barna"></property>
+</bean>
+
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location">
+		<value>config.properties</value>
+	</property>
+</bean>
+
+<bean id="studentByConstructor" class="com.privalia.entity.Student">
+	<constructor-arg index="0" value="${student.idstudent}" type="int"/>
+	<constructor-arg index="1" value="${student.name}" type="java.lang.String"/>
+	<constructor-arg index="2" value="${student.surname}" type="java.lang.String"/>
+	<constructor-arg index="3" value="${student.age}" type="int"/>
+	<constructor-arg index="4" ref="Address"/>
+</bean>
+
+<bean id="SudentWithTeachers" class="com.privalia.entity.listas.Student">
+	<property name="age" value="36"></property>
+	<property name="name" value="Alfredo"></property>
+	<property name="idStudent" value="2"></property>
+	<property name="surname" value="Galiana"></property>
+	<property name="listTeacher">
+		<list>
+			<bean class="com.privalia.entity.listas.Teacher">
+				<property name="idTeacher" value="1" />
+				<property name="name" value="Teacher one" />
+			</bean>
+			<bean class="com.privalia.entity.listas.Teacher">
+				<property name="idTeacher" value="2" />
+				<property name="name" value="Teacher two" />
+			</bean>
+			<bean class="com.privalia.entity.listas.Teacher">
+				<property name="idTeacher" value="3" />
+				<property name="name" value="Teacher three" />
+			</bean>
+		</list>
+	</property>
+</bean>
+
+</beans>
